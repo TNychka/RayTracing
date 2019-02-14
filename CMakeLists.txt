@@ -1,8 +1,16 @@
 cmake_minimum_required(VERSION 3.13)
-
 project(RayTracing)
 
-set(CMAKE_CXX_STANDARD 17)
-ADD_DEFINITIONS(-std=c++1y -Wall -Wfloat-conversion)
+set(CMAKE_CXX_STANDARD 14)
 
-add_subdirectory(src)
+include_directories(.)
+include_directories(src)
+include_directories(src/display)
+include_directories(src/geometry)
+
+add_executable(RayTracing
+        src/display/PpmDisplayer.cpp src/display/PpmDisplayer.h
+        src/geometry/Vector3D.cpp src/geometry/Vector3D.h
+        src/geometry/RGB.cpp src/geometry/RGB.h
+        src/main.cpp
+        src/geometry/Ray.cpp src/geometry/Ray.h)

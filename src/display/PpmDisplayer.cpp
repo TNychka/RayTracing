@@ -3,20 +3,31 @@
 //
 
 #include "PpmDisplayer.h"
+#include <fstream>
 
-#include <iostream>
+void PpmDisplayer::toPpm(int nx, int ny, std::ofstream* outputFile)
+{
+    *outputFile << "P3\n" << nx << " " << ny << "\n255\n";
 
-void PpmDisplayer::toPpm(int nx, int ny, File file) {
-    std::cout << "P3\n" << nx << " " << ny << "\n255\n";
-    for (int j = ny - 1; j >= 0; --j) {
-        for (int i = 0; i < nx; i++) {
-            float r = float(i) / float(nx);
-            float g = float(j) / float(ny);
-            float b = 0.2;
-            int ir = int(255.99*r);
-            int ig = int(255.99*g);
-            int ib = int(255.99*b);
-            std::cout << ir << " " << ig << " " << ib << "\n";
+    Vector3D lowerLeft(-2.0, -1.0, -1.0);
+    Vector3D horizontal(4.0, 0.0, 0.0);
+    Vector3D vertical(0.0, 2.0, 0.0);
+    Vector3D origin(0.0, 0.0, 0.0);
+
+    for (int j = ny-1; j>=0; --j) {
+        for (int i = 0; i<nx; i++) {
+            float u = float(i)/float(nx);
+            float v = float(j)/float(ny);
+
+            Ray r(origin, lowerLeft + u * horizontal + v*vertical);
+            RGB rgb = colour(r);
+            *outputFile << rgb << "\n";
         }
     }
+}
+
+RGB PpmDisplayer::colour(const Ray& r) const {
+    Vector3D unitDirection = Vector3D::makeUnitVector(r.getDirection());
+    auto t = static_cast<float>(0.5 * (unitDirection.getY() + 1.0));
+    return (1.0 - t) * RGB(1.0, 1.0, 1.0) + t * RGB(0.5, 0.7, 1.0);
 }
