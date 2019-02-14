@@ -17,7 +17,7 @@ Model::~Model() {
 bool Model::detectCollision(const Ray& r, float tmin, float tmax, Collidable::HitRecord& hitRecord) const
 {
     Collidable::HitRecord hit;
-    double closest = tmax + 1;
+    double closest = tmax;
     for (Collidable* collidable : collidables) {
         if (collidable->collision(r, tmin, closest, hit)) {
             closest = hit.t;

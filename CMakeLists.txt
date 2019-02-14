@@ -13,4 +13,8 @@ add_executable(RayTracing
         src/geometry/Vector3D.cpp src/geometry/Vector3D.h
         src/geometry/RGB.cpp src/geometry/RGB.h
         src/main.cpp
-        src/geometry/Ray.cpp src/geometry/Ray.h src/geometry/Shapes/Sphere.cpp src/geometry/Shapes/Sphere.h src/geometry/Shapes/Collidable.h src/geometry/Shapes/Collidable.cpp src/display/Model.cpp src/display/Model.h)
+        src/geometry/Ray.cpp src/geometry/Ray.h
+        src/geometry/Shapes/Sphere.cpp src/geometry/Shapes/Sphere.h
+        src/geometry/Shapes/Collidable.cpp src/geometry/Shapes/Collidable.h
+        src/display/Model.cpp src/display/Model.h
+        src/display/Camera.cpp src/display/Camera.h src/geometry/materials/Metals.cpp src/geometry/materials/Metals.h src/geometry/materials/Material.cpp src/geometry/materials/Material.h src/geometry/materials/Lambertian.cpp src/geometry/materials/Lambertian.h src/geometry/materials/Dielectric.cpp src/geometry/materials/Dielectric.h)
