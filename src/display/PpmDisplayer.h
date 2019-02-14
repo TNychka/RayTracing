@@ -5,8 +5,8 @@
 #ifndef RAYTRACING_PPMDISPLAYER_H
 #define RAYTRACING_PPMDISPLAYER_H
 
-#include <src/geometry/Ray.h>
-#include <src/geometry/RGB.h>
+#include <src/geometry/primitives/Ray.h>
+#include <src/geometry/primitives/RGB.h>
 #include "Model.h"
 #include "Camera.h"
 

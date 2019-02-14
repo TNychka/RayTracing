@@ -5,18 +5,18 @@
 #ifndef RAYTRACING_METALS_H
 #define RAYTRACING_METALS_H
 
-#include <src/geometry/Vector3D.h>
+#include <src/geometry/primitives/Vector3D.h>
 #include <src/geometry/Shapes/Collidable.h>
-#include <src/geometry/RGB.h>
+#include <src/geometry/primitives/RGB.h>
 #include "Material.h"
 
 class Metals : public Material {
 private:
 public:
-    Metals(const RGB& albedo, float f);
-    virtual bool scatter(const Ray& rin, const Collidable::HitRecord& rec, RGB& attenuation, Ray& scattered) override;
+    Metals(std::unique_ptr<RGB>&& albeto, float f);
+    virtual ~Metals() = default;
+    virtual bool scatter(const Ray& rin, const HitRecord& rec, RGB& attenuation, Ray& scattered) override;
 private:
-    RGB albedo;
     float fuzz;
 };
 

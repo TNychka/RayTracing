@@ -5,29 +5,21 @@
 #ifndef RAYTRACING_COLLIDABLE_H
 #define RAYTRACING_COLLIDABLE_H
 
-#include <src/geometry/Vector3D.h>
-#include <src/geometry/Ray.h>
-
-
-class Material;
+#include <src/geometry/primitives/Vector3D.h>
+#include <src/geometry/primitives/Ray.h>
+#include <src/geometry/materials/Material.h>
+#include <src/geometry/primitives/HitRecord.h>
 
 class Collidable {
-public:
-    struct HitRecord {
-      float t;
-      Vector3D p;
-      Vector3D normal;
-      const Collidable* collidable;
-    };
-
-    Collidable() = delete;
-    Collidable(Material* material);
-    virtual ~Collidable() = 0;
-    virtual bool collision(const Ray& r, float t_min, float t_max, HitRecord& rec) const = 0;
-    static Vector3D randomInUnitSphere();
-    virtual Material* getMaterial() const;
-private:
-    Material* material;
+ public:
+  Collidable() = delete;
+  Collidable(std::unique_ptr<Material>&& material);
+  virtual ~Collidable() = 0;
+  virtual bool collision(const Ray &r, float t_min, float t_max, HitRecord &rec) const = 0;
+  static Vector3D randomInUnitSphere();
+  virtual Material &getMaterial() const;
+ private:
+  std::unique_ptr<Material> material;
 };
 
 #endif //RAYTRACING_COLLIDABLE_H

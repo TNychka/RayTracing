@@ -46,7 +46,6 @@ public:
     // Operations
     inline float length() const;
     inline float squaredLength() const;
-    inline Vector3D& toUnitVector();
     static inline float dot(const Vector3D& p1, const Vector3D& p2);
     static inline Vector3D cross(const Vector3D& p1, const Vector3D& p2);
 
@@ -189,15 +188,6 @@ inline float Vector3D::length() const
 inline float Vector3D::squaredLength() const
 {
     return values[X]*values[X]+values[Y]*values[Y]+values[Z]*values[Z];
-}
-
-inline Vector3D& Vector3D::toUnitVector()
-{
-    auto k = static_cast<float>(1.0/length());
-    values[X] = getX()/k;
-    values[Y] = getY()/k;
-    values[Z] = getZ()/k;
-    return *this;
 }
 
 inline float Vector3D::dot(const Vector3D& p1, const Vector3D& p2)

@@ -6,13 +6,15 @@
 #define RAYTRACING_SPHERE_H
 
 #include "Collidable.h"
+
 class Sphere : public Collidable {
-public:
-    Sphere(Vector3D vector3D, float radius, Material* material);
-    virtual bool collision(const Ray& r, float t_min, float t_max, HitRecord& hitRecord) const override;
-private:
-    float radius;
-    Vector3D position;
+ public:
+  Sphere(Vector3D vector3D, float radius, std::unique_ptr<Material> &&material);
+  virtual ~Sphere() = default;
+  virtual bool collision(const Ray &r, float t_min, float t_max, HitRecord &hitRecord) const override;
+ private:
+  float radius;
+  Vector3D position;
 };
 
 #endif //RAYTRACING_SPHERE_H

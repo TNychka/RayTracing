@@ -11,7 +11,7 @@ class Model {
 public:
     Model();
     ~Model();
-    virtual bool detectCollision(const Ray& r, float tmin, float tmax, Collidable::HitRecord& hitRecord) const;
+    virtual bool detectCollision(const Ray& r, float tmin, float tmax, HitRecord& hitRecord) const;
     std::vector<Collidable*>& getObjects();
 private:
     std::vector<Collidable*> collidables;
