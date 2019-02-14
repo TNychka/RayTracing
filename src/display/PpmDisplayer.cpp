@@ -5,6 +5,11 @@
 #include "PpmDisplayer.h"
 #include <fstream>
 
+PpmDisplayer::PpmDisplayer(Model& model)
+        :model{model}
+{
+}
+
 void PpmDisplayer::toPpm(int nx, int ny, std::ofstream* outputFile)
 {
     *outputFile << "P3\n" << nx << " " << ny << "\n255\n";
@@ -19,15 +24,21 @@ void PpmDisplayer::toPpm(int nx, int ny, std::ofstream* outputFile)
             float u = float(i)/float(nx);
             float v = float(j)/float(ny);
 
-            Ray r(origin, lowerLeft + u * horizontal + v*vertical);
+            Ray r(origin, lowerLeft+u*horizontal+v*vertical);
             RGB rgb = colour(r);
             *outputFile << rgb << "\n";
         }
     }
 }
 
-RGB PpmDisplayer::colour(const Ray& r) const {
-    Vector3D unitDirection = Vector3D::makeUnitVector(r.getDirection());
-    auto t = static_cast<float>(0.5 * (unitDirection.getY() + 1.0));
-    return (1.0 - t) * RGB(1.0, 1.0, 1.0) + t * RGB(0.5, 0.7, 1.0);
+RGB PpmDisplayer::colour(const Ray& r) const
+{
+    Collidable::HitRecord hit;
+    if (model.detectCollision(r, 0.0, MAXFLOAT, hit)) {
+        return 0.5 * RGB (hit.normal.getX() + 1, hit.normal.getY() + 1, hit.normal.getZ() + 1);
+    } else {
+        Vector3D unitDirection = Vector3D::makeUnitVector(r.getDirection());
+        auto t = static_cast<float>(0.5*(unitDirection.getY()+1.0));
+        return (1.0-t)*RGB(1.0, 1.0, 1.0)+t*RGB(0.5, 0.7, 1.0);
+    }
 }

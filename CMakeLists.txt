@@ -13,4 +13,4 @@ add_executable(RayTracing
         src/geometry/Vector3D.cpp src/geometry/Vector3D.h
         src/geometry/RGB.cpp src/geometry/RGB.h
         src/main.cpp
-        src/geometry/Ray.cpp src/geometry/Ray.h)
+        src/geometry/Ray.cpp src/geometry/Ray.h src/geometry/Shapes/Sphere.cpp src/geometry/Shapes/Sphere.h src/geometry/Shapes/Collidable.h src/geometry/Shapes/Collidable.cpp src/display/Model.cpp src/display/Model.h)

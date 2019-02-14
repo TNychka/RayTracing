@@ -47,8 +47,8 @@ public:
     inline float length() const;
     inline float squaredLength() const;
     inline Vector3D& toUnitVector();
-    inline float dot(const Vector3D& p1, const Vector3D& p2);
-    inline std::unique_ptr<Vector3D> cross(const Vector3D& p1, const Vector3D& p2);
+    static inline float dot(const Vector3D& p1, const Vector3D& p2);
+    static inline Vector3D cross(const Vector3D& p1, const Vector3D& p2);
 
     static Vector3D makeUnitVector(const Vector3D v);
 private:
@@ -205,13 +205,13 @@ inline float Vector3D::dot(const Vector3D& p1, const Vector3D& p2)
     return p1.getX()*p2.getX()+p1.getY()*p2.getY()+p1.getZ()*p2.getZ();
 }
 
-inline std::unique_ptr<Vector3D> Vector3D::cross(const Vector3D& p1, const Vector3D& p2)
+inline Vector3D Vector3D::cross(const Vector3D& p1, const Vector3D& p2)
 {
-    return std::make_unique<Vector3D>(Vector3D(
+    return Vector3D(
             (p1.getY()*p2.getZ()-p1.getZ()*p2.getY()),
             -(p1.getX()*p2.getZ()-p1.getZ()*p2.getX()),
             (p1.getX()*p2.getY()-p1.getY()*p2.getX())
-    ));
+    );
 }
 
 inline std::istream& operator>>(std::istream& is, Vector3D& v1)
